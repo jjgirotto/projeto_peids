@@ -12,4 +12,13 @@ router.get('/', diretorController.buscarDiretores);
 //POST /api/diretores
 router.post('/', diretorController.criarDiretor);
 
+// GET /api/diretores/id
+router.get('/:id', diretorController.buscarDiretorPorId);
+
+// PUT /api/diretores/id
+router.put('/:id', diretorController.atualizarDiretor);
+
+// DELETE /api/diretores/id
+router.delete('/:id', diretorController.removerDiretor);
+
 module.exports = router;

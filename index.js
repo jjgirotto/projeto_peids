@@ -6,6 +6,8 @@ const generosRouter = require('./routes/generos'); //importa as rotas de gênero
 const diretoresRouter = require('./routes/diretores'); //importa as rotas de diretores
 const atoresRouter = require('./routes/atores'); //importa as rotas de atores
 const utilizadoresRouter = require('./routes/utilizadores'); //importa as rotas de utilizadores
+const filmesSeriesRouter = require('./routes/filmes-series'); //importa as rotas de filmes e séries
+const reviewsRouter = require('./routes/reviews'); //importa as rotas de reviews
 
 
 const app = express();
@@ -26,5 +28,11 @@ app.use('/api/atores', atoresRouter);
 
 //utilizadores
 app.use('/api/utilizadores', utilizadoresRouter);
+
+//filmes e séries
+app.use('/api/filmes-series', filmesSeriesRouter);
+
+//reviews
+app.use('/api/reviews', reviewsRouter);
 
 app.listen(process.env.PORT);

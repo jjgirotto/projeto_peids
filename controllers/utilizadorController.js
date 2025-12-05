@@ -2,7 +2,6 @@ const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// busca todos os utilizadores
 const buscarUtilizadores = async (req, res) => {
     try {
         const [rows] = await db.query('SELECT id_utilizadores, nome, email FROM utilizadores');
