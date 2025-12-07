@@ -1,14 +1,21 @@
-const mysql = require('mysql2/promise');
+var mysql = require('mysql2');
 
-// lendo as variáveis de ambiente
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+var connectionOptions = {
+    host: "localhost",
+    user: "root",
+    password: "123456",
+    database: "gestao-filmes-series",
+    dateStrings: true
+};
+
+var connection = mysql.createConnection(connectionOptions);
+
+connection.connect((err) => {
+    if (err) {
+        console.log("Erro ao conectar no banco:", err);
+        return;
+    }
+    console.log("MySQL conectado!");
 });
 
-module.exports = pool;
+module.exports = connection;

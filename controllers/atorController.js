@@ -1,88 +1,87 @@
 const db = require('../config/db');
 
-const buscarAtores = async (req, res) => {
-    try {
-        const [rows] = await db.query('SELECT * FROM atores');
-        res.status(200).json(rows);
-    } catch (err) {
-        console.error('Erro ao listar atores:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+const buscarAtores = (req, res) => {
+    db.query('SELECT * FROM atores', (err, results) => {
+        if (err) {
+            console.error('Erro ao listar atores:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        res.status(200).json(results);
+    });
 };
 
-const criarAtor = async (req, res) => {
-    try {
-        const nome = req.body.nome; 
-        if (!nome) {
-            return res.status(400).json({ message: "O campo 'nome' é obrigatório." });
+const criarAtor = (req, res) => {
+    const nome = req.body.nome;
+    if (!nome) {
+        return res.status(400).json({ message: "O campo 'nome' é obrigatório." });
+    }
+    db.query('INSERT INTO atores (nome) VALUES (?)', [nome], (err, results) => {
+        if (err) {
+            console.error('Erro ao criar ator:', err);
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Esse ator já existe.' });
+            }
+            return res.status(500).json({ message: 'Erro no servidor' });
         }
-        const [row] = await db.query('INSERT INTO atores (nome) VALUES (?)', [nome]);
         res.status(201).json({
             message: 'Ator criado com sucesso!',
-            id_criado: row.insertId,
+            id_criado: results.insertId,
             nome: nome
         });
-    } catch (err) {
-        console.error('Erro ao criar ator:', err);
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({ message: 'Esse ator já existe.' });
-        }
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+    });
 };
 
-const buscarAtorPorId = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [rows] = await db.query('SELECT * FROM atores WHERE id_atores = ?', [id]);
-        if (rows.length === 0) {
+const buscarAtorPorId = (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM atores WHERE id_atores = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar ator:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        if (results.length === 0) {
             return res.status(404).json({ message: 'Ator não encontrado.' });
         }
-        res.status(200).json(rows[0]);
-    } catch (err) {
-        console.error('Erro ao buscar ator:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+        res.status(200).json(results[0]);
+    });
 };
 
-const atualizarAtor = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { nome } = req.body;
-        if (!nome ) {
-            return res.status(400).json({ message: 'O campo nome é obrigatório.' });
+const atualizarAtor = (req, res) => {
+    const { id } = req.params;
+    const { nome } = req.body;
+    if (!nome) {
+        return res.status(400).json({ message: 'O campo nome é obrigatório.' });
+    }
+    db.query('UPDATE atores SET nome = ? WHERE id_atores = ?', [nome, id], (err, results) => {
+        if (err) {
+            console.error('Erro ao atualizar ator:', err);
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Esse ator já possui registo.' });
+            }
+            return res.status(500).json({ message: 'Erro no servidor' });
         }
-        const [result] = await db.query('UPDATE atores SET nome = ? WHERE id_atores = ?',
-            [nome, id]);
-        if (result.affectedRows === 0) {
+        if (results.affectedRows === 0) {
             return res.status(404).json({ message: 'Ator não encontrado.' });
         }
-        res.status(200).json({ 
+        res.status(200).json({
             message: 'Ator atualizado com sucesso!',
             id: id,
             nome: nome
         });
-    } catch (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({ message: 'Esse ator já possui registo.' });
-        }
-        console.error('Erro ao atualizar ator:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }   
+    });
 };
 
-const removerAtor = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await db.query('DELETE FROM atores WHERE id_atores = ?', [id]);
-        if (result.affectedRows === 0) {
+const removerAtor = (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM atores WHERE id_atores = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao remover ator:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        if (results.affectedRows === 0) {
             return res.status(404).json({ message: 'Ator não encontrado.' });
         }
         res.status(204).send();
-    } catch (err) {
-        console.error('Erro ao remover ator:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+    });
 };
 
 module.exports = {

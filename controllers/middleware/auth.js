@@ -6,7 +6,6 @@ const protegerRota = (req, res, next) => {
     if (token == null) {
         return res.status(401).json({ message: 'Acesso negado. Token não fornecido.' }); 
     }
-    // 3. Verificar o token
     jwt.verify(token, process.env.JWT_SECRET, (err, utilizador) => { 
         if (err) {
             return res.status(403).json({ message: 'Token inválido ou expirado.' }); 

@@ -1,7 +1,6 @@
 // Carregando as variáveis de ambiente do .env
 require('dotenv').config();
 const express = require('express'); //importa express
-const db = require('./config/db'); //importa a conexão do db
 const generosRouter = require('./routes/generos'); //importa as rotas de gêneros
 const diretoresRouter = require('./routes/diretores'); //importa as rotas de diretores
 const atoresRouter = require('./routes/atores'); //importa as rotas de atores

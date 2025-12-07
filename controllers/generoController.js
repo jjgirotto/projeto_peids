@@ -1,88 +1,99 @@
 const db = require('../config/db');
 
-const buscarGeneros = async (req, res) => {
-    try {
-        const [rows] = await db.query('SELECT * FROM generos');
-        res.status(200).json(rows);
-    } catch (err) {
-        console.error('Erro ao listar gêneros:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+const buscarGeneros = (req, res) => {
+    db.query('SELECT * FROM generos', (err, results) => {
+        if (err) {
+            console.error('Erro ao listar gêneros:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        res.status(200).json(results);
+    });
 };
 
-const criarGenero = async (req, res) => {
-    try {
-        const nome = req.body.nome; 
-        if (!nome) {
-            return res.status(400).json({ message: "O campo 'nome' é obrigatório." });
+const criarGenero = (req, res) => {
+    const nome = req.body.nome;
+    
+    if (!nome) {
+        return res.status(400).json({ message: "O campo 'nome' é obrigatório." });
+    }
+
+    db.query('INSERT INTO generos (nome) VALUES (?)', [nome], (err, results) => {
+        if (err) {
+            console.error('Erro ao criar gênero:', err);
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Esse gênero já existe.' });
+            }
+            return res.status(500).json({ message: 'Erro no servidor' });
         }
-        const [row] = await db.query('INSERT INTO generos (nome) VALUES (?)', [nome]);
         res.status(201).json({
             message: 'Gênero criado com sucesso!',
-            id_criado: row.insertId,
+            id_criado: results.insertId,
             nome: nome
         });
-    } catch (err) {
-        console.error('Erro ao criar gênero:', err);
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({ message: 'Esse gênero já existe.' });
-        }
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+    });
 };
 
-const buscarGeneroPorId = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [rows] = await db.query('SELECT * FROM generos WHERE id_generos = ?', [id]);
-        if (rows.length === 0) {
+const buscarGeneroPorId = (req, res) => {
+    const { id } = req.params;
+
+    db.query('SELECT * FROM generos WHERE id_generos = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar gênero:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+
+        if (results.length === 0) {
             return res.status(404).json({ message: 'Gênero não encontrado.' });
         }
-        res.status(200).json(rows[0]);
-    } catch (err) {
-        console.error('Erro ao buscar gênero:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+
+        res.status(200).json(results[0]);
+    });
 };
 
-const atualizarGenero = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { nome } = req.body;
-        if (!nome ) {
-            return res.status(400).json({ message: 'O campo nome é obrigatório.' });
+const atualizarGenero = (req, res) => {
+    const { id } = req.params;
+    const { nome } = req.body;
+
+    if (!nome) {
+        return res.status(400).json({ message: 'O campo nome é obrigatório.' });
+    }
+
+    db.query('UPDATE generos SET nome = ? WHERE id_generos = ?', [nome, id], (err, results) => {
+        if (err) {
+            console.error('Erro ao atualizar gênero:', err);
+            if (err.code === 'ER_DUP_ENTRY') {
+                return res.status(409).json({ message: 'Esse gênero já possui registo.' });
+            }
+            return res.status(500).json({ message: 'Erro no servidor' });
         }
-        const [result] = await db.query('UPDATE generos SET nome = ? WHERE id_generos = ?',
-            [nome, id]);
-        if (result.affectedRows === 0) {
+
+        if (results.affectedRows === 0) {
             return res.status(404).json({ message: 'Gênero não encontrado.' });
         }
-        res.status(200).json({ 
+
+        res.status(200).json({
             message: 'Gênero atualizado com sucesso!',
             id: id,
             nome: nome
         });
-    } catch (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(409).json({ message: 'Esse gênero já possui registo.' });
-        }
-        console.error('Erro ao atualizar gênero:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }   
+    });
 };
 
-const removerGenero = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await db.query('DELETE FROM generos WHERE id_generos = ?', [id]);
-        if (result.affectedRows === 0) {
+const removerGenero = (req, res) => {
+    const { id } = req.params;
+
+    db.query('DELETE FROM generos WHERE id_generos = ?', [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao remover gênero:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+
+        if (results.affectedRows === 0) {
             return res.status(404).json({ message: 'Gênero não encontrado.' });
         }
+
         res.status(204).send();
-    } catch (err) {
-        console.error('Erro ao remover gênero:', err);
-        res.status(500).json({ message: 'Erro no servidor' });
-    }
+    });
 };
 
 module.exports = {

@@ -21,8 +21,8 @@ router.get('/series', filmesSeriesController.buscarSeries);
 // GET /api/filmes-series/id
 router.get('/:id', filmesSeriesController.buscarFilmeSeriePorId);
 
-//TBD
-// buscar por genero, ano, titulo e diretor
+//GET /api/filmes-series/titulo/:titulo
+router.get('/titulo/:titulo', filmesSeriesController.buscarFilmeSeriePorTitulo);
 
 // PUT /api/filmes-series/id
 router.put('/:id', filmesSeriesController.atualizarFilmeSerie);

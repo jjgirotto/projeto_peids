@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-// importando controlador
+const protegerRota = require('../controllers/middleware/auth');
 const reviewController = require('../controllers/reviewController');
 
 // Rotas
@@ -10,7 +9,7 @@ const reviewController = require('../controllers/reviewController');
 router.get('/', reviewController.buscarReviews);
 
 //POST /api/reviews
-router.post('/', reviewController.criarReview);
+router.post('/', protegerRota, reviewController.criarReview);
 
 // GET /api/reviews/id
 router.get('/:id', reviewController.buscarReviewPorId);
@@ -19,9 +18,9 @@ router.get('/:id', reviewController.buscarReviewPorId);
 router.get('/filmeserie/:id', reviewController.buscarReviewPorFilmeSerie);
 
 // PUT /api/reviews/id
-router.put('/:id', reviewController.atualizarReview);
+router.put('/:id', protegerRota, reviewController.atualizarReview);
 
 // DELETE /api/reviews/id
-router.delete('/:id', reviewController.removerReview);
+router.delete('/:id', protegerRota, reviewController.removerReview);
 
 module.exports = router;
