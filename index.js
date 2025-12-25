@@ -7,7 +7,7 @@ const atoresRouter = require('./routes/atores'); //importa as rotas de atores
 const utilizadoresRouter = require('./routes/utilizadores'); //importa as rotas de utilizadores
 const filmesSeriesRouter = require('./routes/filmes-series'); //importa as rotas de filmes e séries
 const reviewsRouter = require('./routes/reviews'); //importa as rotas de reviews
-
+const tmdbRouter = require('./routes/tmdb'); //importa as rotas do TMDB
 
 const app = express();
 app.use(express.json());
@@ -33,5 +33,8 @@ app.use('/api/filmes-series', filmesSeriesRouter);
 
 //reviews
 app.use('/api/reviews', reviewsRouter);
+
+//tmdb
+app.use('/api/tmdb', tmdbRouter);
 
 app.listen(process.env.PORT);

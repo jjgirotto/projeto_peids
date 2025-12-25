@@ -23,4 +23,7 @@ router.put('/:id', protegerRota, reviewController.atualizarReview);
 // DELETE /api/reviews/id
 router.delete('/:id', protegerRota, reviewController.removerReview);
 
+// POST /api/reviews/:id/votar
+router.post('/:id/votar', protegerRota, reviewController.votarReview);
+
 module.exports = router;

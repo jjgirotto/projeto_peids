@@ -47,6 +47,8 @@ DB_PASSWORD=sua_senha_mysql
 DB_NAME=gestao-filmes-series
 PORT=8080
 JWT_SECRET=coloque_aqui_uma_frase_secreta_e_segura
+TMDB_API_KEY=tua_chave_aqui_do_site_tmdb
+TMDB_BASE_URL=https://api.themoviedb.org/3
 ```
 3. Configuração do Banco de Dados: Este projeto não utiliza migrações automáticas. Foi gerado um script SQL completo para configurar a estrutura e os dados iniciais.
 - Localize o arquivo script.sql que se encontra na pasta docs deste projeto.

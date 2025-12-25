@@ -3,6 +3,7 @@ const router = express.Router();
 
 // importando controlador
 const diretorController = require('../controllers/diretorController');
+const protegerRota = require('../controllers/middleware/auth');
 
 // Rotas
 
@@ -10,15 +11,15 @@ const diretorController = require('../controllers/diretorController');
 router.get('/', diretorController.buscarDiretores);
 
 //POST /api/diretores
-router.post('/', diretorController.criarDiretor);
+router.post('/', protegerRota, diretorController.criarDiretor);
 
 // GET /api/diretores/id
 router.get('/:id', diretorController.buscarDiretorPorId);
 
 // PUT /api/diretores/id
-router.put('/:id', diretorController.atualizarDiretor);
+router.put('/:id', protegerRota, diretorController.atualizarDiretor);
 
 // DELETE /api/diretores/id
-router.delete('/:id', diretorController.removerDiretor);
+router.delete('/:id', protegerRota, diretorController.removerDiretor);
 
 module.exports = router;

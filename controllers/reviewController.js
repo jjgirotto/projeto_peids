@@ -111,11 +111,32 @@ const removerReview = (req, res) => {
     });
 };
 
+const votarReview = (req, res) => {
+    const { id } = req.params;
+
+    // A lógica é simples: Incrementa 1 ao valor atual
+    const query = 'UPDATE reviews SET votos = votos + 1 WHERE id_reviews = ?';
+
+    db.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao votar na review:', err);
+            return res.status(500).json({ message: 'Erro no servidor' });
+        }
+        
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Review não encontrada.' });
+        }
+
+        res.status(200).json({ message: 'Voto registado com sucesso!' });
+    });
+};
+
 module.exports = {
     buscarReviewPorId,
     buscarReviews,
     criarReview,
     atualizarReview,
     removerReview,
-    buscarReviewPorFilmeSerie
+    buscarReviewPorFilmeSerie,
+    votarReview
 };

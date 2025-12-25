@@ -3,6 +3,7 @@ const router = express.Router();
 
 // importando controlador
 const atorController = require('../controllers/atorController');
+const protegerRota = require('../controllers/middleware/auth');
 
 // Rotas
 
@@ -10,15 +11,15 @@ const atorController = require('../controllers/atorController');
 router.get('/', atorController.buscarAtores);
 
 //POST /api/atores
-router.post('/', atorController.criarAtor);
+router.post('/', protegerRota, atorController.criarAtor);
 
 // GET /api/atores/id
 router.get('/:id', atorController.buscarAtorPorId);
 
 // PUT /api/atores/id
-router.put('/:id', atorController.atualizarAtor);
+router.put('/:id', protegerRota, atorController.atualizarAtor);
 
 // DELETE /api/atores/id
-router.delete('/:id', atorController.removerAtor);
+router.delete('/:id', protegerRota, atorController.removerAtor);
 
 module.exports = router;
