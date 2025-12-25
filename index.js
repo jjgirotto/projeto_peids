@@ -8,6 +8,8 @@ const utilizadoresRouter = require('./routes/utilizadores'); //importa as rotas 
 const filmesSeriesRouter = require('./routes/filmes-series'); //importa as rotas de filmes e séries
 const reviewsRouter = require('./routes/reviews'); //importa as rotas de reviews
 const tmdbRouter = require('./routes/tmdb'); //importa as rotas do TMDB
+const favoritosRouter = require('./routes/favoritos'); //importa fav
+const listasRouter = require('./routes/listas');
 
 const app = express();
 app.use(express.json());
@@ -36,5 +38,11 @@ app.use('/api/reviews', reviewsRouter);
 
 //tmdb
 app.use('/api/tmdb', tmdbRouter);
+
+//favoritos
+app.use('/api/favoritos', favoritosRouter);
+
+//listas
+app.use('/api/listas', listasRouter);
 
 app.listen(process.env.PORT);
