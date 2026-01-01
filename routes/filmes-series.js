@@ -19,11 +19,11 @@ router.get('/filmes', filmesSeriesController.buscarFilmes);
 // GET /api/filmes-series/series
 router.get('/series', filmesSeriesController.buscarSeries);
 
-// GET /api/filmes-series/id
-router.get('/:id', filmesSeriesController.buscarFilmeSeriePorId);
-
 //GET /api/filmes-series/titulo/:titulo
 router.get('/titulo/:titulo', filmesSeriesController.buscarFilmeSeriePorTitulo);
+
+// GET /api/filmes-series/id
+router.get('/:id', filmesSeriesController.buscarFilmeSeriePorId);
 
 // PUT /api/filmes-series/id
 router.put('/:id', protegerRota, filmesSeriesController.atualizarFilmeSerie);

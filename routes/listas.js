@@ -11,7 +11,7 @@ router.get('/', listasController.verMinhaLista);
 //POST /api/listas
 router.post('/', listasController.adicionarALista);
 
-//DELETE /api/listas/:id_filme-serie
-router.delete('/:id_filme-serie', listasController.removerDaLista);
+//DELETE /api/listas/:id_filme
+router.delete('/:id_filme', listasController.removerDaLista);
 
 module.exports = router;

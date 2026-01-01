@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha Conta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+
+    <nav class="navbar navbar-dark bg-black mb-4">
+        <div class="container">
+            <a class="navbar-brand text-warning" href="../index.html">🎬 CineMágico</a>
+            <a href="#" id="btnLogout" class="btn btn-sm btn-outline-danger">Sair</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="mb-4">Minha Área</h2>
+
+        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil" type="button">👤 Editar Perfil</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="favoritos-tab" data-bs-toggle="tab" data-bs-target="#favoritos" type="button">❤️ Meus Favoritos</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="listas-tab" data-bs-toggle="tab" data-bs-target="#listas" type="button">📋 Minha Watchlist</button>
+            </li>
+        </ul>
+
+            <div class="tab-content">
+    <div class="tab-pane fade show active" id="perfil">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card bg-secondary text-white p-4">
+                    <h4>✏️ Meus Dados</h4>
+                    <form id="formPerfil">
+                        <div class="mb-3">
+                            <label>Nome</label>
+                            <input type="text" id="editNome" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input type="email" id="editEmail" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100">Salvar Dados</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card bg-secondary text-white p-4">
+                    <h4>🔒 Alterar Senha</h4>
+                    <form id="formSenha">
+                        <div class="mb-3">
+                            <label>Senha Antiga</label>
+                            <input type="password" id="senhaAntiga" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Nova Senha</label>
+                            <input type="password" id="novaSenha" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-light w-100">Atualizar Senha</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+            <div class="tab-pane fade" id="favoritos">
+                <div id="lista-favoritos" class="list-group">
+                    </div>
+            </div>
+
+            <div class="tab-pane fade" id="listas">
+                <div id="lista-pessoal" class="list-group">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>

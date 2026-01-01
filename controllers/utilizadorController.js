@@ -165,7 +165,14 @@ const loginUtilizador = (req, res) => {
                 process.env.JWT_SECRET,
                 { expiresIn: '2h' }
             );
-            res.status(200).json({token: token});
+            res.status(200).json({
+                token: token,
+                utilizador: {
+                    id_utilizadores: utilizador.id_utilizadores,
+                    nome: utilizador.nome,
+                    email: utilizador.email
+                }
+            });
         });
     });
 };

@@ -10,7 +10,7 @@ router.get('/', favoritosController.listarFavoritos);
 // POST /api/favoritos
 router.post('/', favoritosController.adicionarFavorito);
 
-// DELETE /api/favoritos/:id_filme-serie
-router.delete('/:id_filme-serie', favoritosController.removerFavorito);
+// DELETE /api/favoritos/:id_filme
+router.delete('/:id_filme', favoritosController.removerFavorito);
 
 module.exports = router;
