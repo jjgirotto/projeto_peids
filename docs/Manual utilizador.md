@@ -1,47 +1,97 @@
 # MANUAL UTILIZADOR
 
-# Gestão de filmes e séries
+## Projeto: Gestão de Filmes e Séries
+URL de Acesso: http://localhost:8080
 
-## Sobre
-O projeto consiste em uma aplicação web para a gestão e catálogo de Filmes e Séries. Possui uma interface gráfica acedida através do site localhost:8080 com as seguintes funcionalidades:
-- Catálogo de filmes e séries para visualização;
-- Login
-- Criação de novo utilizador para aceder às funcionalidades a seguir:
-1. Alterar dados da própria conta
-2. Adicionar, editar e remover géneros de filme/série;
-3. Adicionar, editar e remover diretores de filme/série;
-4. Adicionar, editar e remover atores de filme/série;
-5. Adicionar, editar e remover filmes/séries;
-6. Pesquisar filmes/séries na API do TMDB;
-7. Importar filmes/séries da API do TMDB para o site;
-8. Guardar filmes/séries em uma lista personalizada;
-9. Favoritar filmes/séries;
-10. Realizar reviews sobre filmes/séries e votá-los como útil;
+## 1. Introdução
+Bem-vindo ao sistema de Gestão de Filmes e Séries. Esta aplicação web permite-lhe explorar um vasto catálogo de entretenimento, criar as suas próprias listas, avaliar conteúdos e, através da área de gestão, administrar toda a base de dados de filmes, atores e realizadores.
 
-## Guia de utilização
+## 2. Acesso e Autenticação
+### 2.1. Ecrã Inicial e Catálogo
+Ao aceder à aplicação, será recebido pela página inicial onde são listados os filmes e séries disponíveis no sistema. Qualquer visitante pode visualizar o catálogo.
 
-Após aceder ao site, verás a lista de catálogo de filmes e séries, ao clicar em "Ver detalhes" o filme/série selecionado será aberto com mais informações. Nesta tela é possível:
-- Favoritá-lo;
-- Adicionar à lista personalizada;
-- Escrever review;
-- Votar em reviews.
+Barra de Pesquisa: No topo, pode filtrar filmes pelo título.
+Filtros: Utilize os botões para alternar entre "Todos", "Filmes" ou "Séries".
 
-Na barra de navegação é possível aceder à área de login, logout, minha conta e gestão. A área de gestão é acedida apenas se o utilizador estiver autenticado.
+![Imagem do ecrã inicial](home.png)
 
-Na área de login é possível:
-- Realizar o login com email e senha;
-- Aceder à tela de registo de utilizador (irá solicitar nome, email e senha para registo).
+### 2.2. Criar Conta (Registo)
+Para aceder às funcionalidades avançadas (como favoritos e gestão), é necessário criar uma conta.
 
-Na área minha conta é possível:
-- Alterar dados como nome e email;
-- Alterar a senha;
-- Visualizar os filmes/séries favoritos;
-- Visualizar a lista personalizada.
+- Clique em "Login" na barra de navegação superior.
+- Selecione a opção "Regista-te aqui".
+- Preencha os campos: Nome, Email e Senha.
+- Clique em confirmar. Será redirecionado para o login.
 
-Na área de gestão é possível:
-- Visualizar, adicionar, editar e remover géneros;
-- Visualizar, adicionar, editar e remover diretores;
-- Visualizar, adicionar, editar e remover atores;
-- Visualizar, adicionar, editar e remover filmes/séries;
-- Pesquisar filmes/séries na API do TMDB;
-- Importar filmes/séries na API do TMDB.
+![Imagem do ecrã de registo](registo.png)
+
+### 2.3. Login
+Insira o seu email e senha registados.
+
+![Imagem do ecrã de login](login.png)
+
+Ao entrar, a barra de navegação mudará, mostrando novas opções: "Minha Área" e "Gestão".
+
+## 3. Funcionalidades do Utilizador
+Uma vez autenticado, terá acesso a ferramentas de personalização.
+
+### 3.1. Detalhes e Interação
+Ao clicar em "Ver Detalhes" num filme ou série, encontrará:
+
+Ficha Técnica: Sinopse, ano, duração e elenco.
+
+❤️ Favoritos: Clique no botão para adicionar aos seus favoritos.
+
+📋 Watchlist: Clique para adicionar à sua lista pessoal ("Para ver mais tarde").
+
+Reviews:
+
+Escrever: Deixe uma nota (1 a 5) e um comentário.
+
+Votar: Achou uma review útil? Clique no "Útil" (👍) nas reviews de outros utilizadores.
+
+![Imagem do ecrã de review](review.png)
+
+### 3.2. Minha Área (Perfil)
+No menu "Minha Área", tem controlo total sobre os seus dados:
+
+Editar Perfil: Atualize o seu nome ou email.
+
+Segurança: Altere a sua palavra-passe.
+
+As Minhas Listas: Consulte e faça a gestão (remover itens) dos seus Favoritos e da sua Watchlist.
+
+![Imagem do ecrã de minha conta](minha-conta.png)
+
+## 4. Área de Gestão (Backoffice)
+Esta área é exclusiva para utilizadores registados e serve para alimentar o site com novos conteúdos.
+
+![Imagem do ecrã de gestão](gestao.png)
+
+### 4.1. Importação Inteligente (TMDB)
+Não precisa de preencher tudo manualmente. O sistema conecta-se à base de dados mundial do TMDB.
+
+Vá ao separador "Importar TMDB".
+
+Escreva o nome do filme ou série.
+
+O sistema mostrará os resultados com capas.
+
+Clique em "Importar". O filme, a sinopse, o ano e a imagem serão guardados automaticamente na sua base de dados local.
+
+![Imagem do ecrã de importar](importar.png)
+
+### 4.2. Gestão Manual de Acervo
+Se preferir, pode gerir os dados manualmente nos respetivos separadores:
+
+🎬 Filmes e Séries: Adicionar novos títulos, editar informações ou apagar do sistema.
+
+🎭 Atores: Gerir a lista de atores disponíveis.
+
+📢 Diretores: Gerir a lista de diretores disponíveis.
+
+🏷️ Géneros: Criar, editar ou remover géneros (ex: Ação, Drama).
+
+![Imagem do ecrã de edição de atores](atores.png)
+
+Nota: Ao apagar um Género, Diretor, Ator ou Filmes/Séries tenha cuidado, pois isso pode afetar os filmes associados a eles.

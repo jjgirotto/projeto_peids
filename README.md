@@ -4,7 +4,6 @@
 
 ## Autoras
 - [Juliana Girotto Leite](https://github.com/jjgirotto)
-- [Aisha Jua](https://github.com/aishinha)
 
 ## Sobre
 O projeto consiste em uma aplicação web para a gestão e catálogo de Filmes e Séries. A aplicação é construída com Node.js, utilizando o framework Express.js para a criação de uma API REST robusta, e utiliza MySQL para o gerenciamento de banco de dados relacional. As funcionalidades principais do sistema incluem a autenticação segura de utilizadores, gestão completa de acervo (filmes, séries, atores, diretores e géneros) e a criação de listas personalizadas e favoritos. A aplicação também integra um sistema de Reviews e Classificações, além de consumir a API externa do TMDB para importação e enriquecimento dos dados.
@@ -132,7 +131,7 @@ URL = localhost:8080/api/{endpoint}
 |Reviews|GET|reviews/filmeserie/{idfilmeserie}|Busca review por id do filme/série|Não|Sim|
 |Reviews|POST|reviews|Cria nova review|Sim|Sim|
 |Reviews|PUT|reviews/{id}|Edita review por id|Sim|Não|
-|Reviews|DELETE|reviews/{id}|Remove review por id|Sim|Não|
+|Reviews|DELETE|reviews/{id}|Remove review por id do usuário autenticado|Sim|Sim|
 |Reviews|POST|reviews/{id}/votar|Votar review|Sim|Sim|
 
 

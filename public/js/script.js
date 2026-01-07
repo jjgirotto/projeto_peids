@@ -434,6 +434,9 @@ async function carregarReviews(idFilme) {
     const reviews = await res.json();
     const container = document.getElementById('lista-reviews');
     
+    const user = getUser();
+    const meuId = user ? (user.id_utilizadores || user.id) : null;
+
     container.innerHTML = '';
     if (!reviews || reviews.length === 0) {
         container.innerHTML = '<p class="text-white">Ainda não há reviews.</p>';
@@ -441,16 +444,54 @@ async function carregarReviews(idFilme) {
     }
 
     reviews.forEach(r => {
+        let btnExcluir = '';
+        if (meuId && r.id_utilizador == meuId) {
+            btnExcluir = `<button onclick="apagarReview(${r.id_reviews})" class="btn btn-sm btn-danger ms-2" title="Apagar minha review">🗑️</button>`;
+        }
+
         container.innerHTML += `
             <div class="card bg-dark border-secondary mb-2 text-white">
                 <div class="card-body">
-                    <h5 class="card-title text-warning">Nota: ${r.classificacao}/5</h5>
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title text-warning">Nota: ${r.classificacao}/5</h5>
+                        <small class="text-muted">${r.data_criacao || ''}</small>
+                    </div>
                     <h6 class="card-subtitle mb-2 text-muted">Por: ${r.nome_utilizador || 'Anónimo'}</h6>
                     <p class="card-text">${r.critica}</p>
-                    <button onclick="curtirReview(${r.id_reviews})" class="btn btn-sm btn-outline-light">👍 Útil (${r.votos})</button>
+                    
+                    <div class="d-flex align-items-center">
+                        <button onclick="curtirReview(${r.id_reviews})" class="btn btn-sm btn-outline-light">👍 Útil (${r.votos})</button>
+                        ${btnExcluir} </div>
                 </div>
             </div>`;
     });
+}
+
+async function apagarReview(idReview) {
+    if(!confirm('Tens a certeza que queres apagar a tua review?')) return;
+
+    const token = getToken();
+    if(!token) return alert('Sessão expirada. Faz login novamente.');
+
+    try {
+        const res = await fetch(`${API_URL}/reviews/${idReview}`, {
+            method: 'DELETE',
+            headers: { 
+                'Authorization': `Bearer ${token}` 
+            }
+        });
+
+        if (res.ok) {
+            alert('Review apagada com sucesso!');
+            location.reload();
+        } else {
+            const data = await res.json();
+            alert('Erro: ' + (data.message || 'Não foi possível apagar.'));
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Erro de conexão.');
+    }
 }
 
 async function curtirReview(idReview) {
