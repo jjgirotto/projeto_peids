@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestão de Diretores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+
+    <nav class="navbar navbar-dark bg-black mb-4 border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand text-warning" href="../index.html"><span class="badge bg-secondary">Diretores</span></a>
+            <a href="gestao.html" class="btn btn-sm btn-outline-light">Voltar</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-secondary text-white p-3">
+                    <h5>Novo Diretor</h5>
+                    <form id="formDiretor">
+                        <input type="hidden" id="idEditDiretor">
+                        <div class="mb-3">
+                            <label>Nome Completo</label>
+                            <input type="text" id="nomeDiretor" class="form-control" required placeholder="Ex: Quentin Tarantino">
+                        </div>
+                        <button type="submit" id="btnSubmitDiretor" class="btn btn-warning w-100">Criar</button>
+                        <button type="button" id="btnCancelDiretor" class="btn btn-secondary d-none" onclick="resetFormDiretor()">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card bg-dark border-secondary">
+                    <div class="card-header border-secondary">Diretores Cadastrados</div>
+                    <ul id="lista-diretores" class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark text-white">A carregar...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

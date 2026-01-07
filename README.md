@@ -1,3 +1,5 @@
+# MANUAL TÉCNICO
+
 # Gestão de filmes e séries
 
 ## Autoras
@@ -60,22 +62,81 @@ TMDB_BASE_URL=https://api.themoviedb.org/3
 ```bash
 node index.js
 ```
-Ao executar o servidor, a API estará disponível no link: http://localhost:8080 (ou na porta definida no seu .env).
-A aplicação possui uma interface web completa (Frontoffice e Backoffice). Não é necessário utilizar ferramentas externas como o Postman para o uso regular.
+- Ao executar o servidor, a API estará disponível no link: http://localhost:8080 (ou na porta definida no seu .env).
+- A aplicação possui uma interface web (Frontoffice e Backoffice). Não é necessário utilizar ferramentas externas como o Postman para o uso regular. Porém, algumas funcionalidades estão disponíveis apenas no backoffice na API.
+- Neste repositório há uma coleção para ser importada no Postman que contém todos os endpoints preparados para serem acedidos, aqui: [coleção](https://github.com/jjgirotto/projeto_peids/blob/main/docs/filmes-séries.postman_collection.json)
 
 ## Consumo
 1. Login (Backoffice): Para acessar as funcionalidades de gestão (criar/editar/remover filmes), crie um novo utilizador na interface de registo.
 2. Realize o login.
 3. Funcionalidades Disponíveis na Interface:
-- Visualizar catálogo de Filmes e Séries.
-- Pesquisar e filtrar conteúdos.
-- Criar conta e fazer Login.
-- Adicionar filmes aos Favoritos e Listas Personalizadas.
-- Escrever e visualizar Reviews.
-- Gerir o acervo de filmes, gêneros, atores e diretores.
+- Visualizar catálogo de filmes e séries;
+- Pesquisar e filtrar conteúdos;
+- Importar filmes e séries da API do TMDB;
+- Criar conta, editar dados da conta;
+- Login e logout;
+- Adicionar e remover filmes/séries de favoritos e listas personalizadas;
+- Escrever, visualizar reviews e votar como útil;
+- Gerir o acervo de filmes, gêneros, atores e diretores;
 
 ## Endpoints
 
-| Categoria |Método HTTP| Endpoint        | Ação                       | Autenticação |
-|-----------|-----------|-----------------|----------------------------|--------------|
+URL = localhost:8080/api/{endpoint}
+
+| Categoria |Método HTTP| Endpoint        | Ação                       | Autenticação | Interface | 
+|-------|---------------|----------------|----------------------------|--------------|------------|
+|Utilizadores|GET|utilizadores|Busca todos os utilizadores|Sim|Não|
+|Utilizadores|GET|utilizadores/{id}|Busca utilizador por id|Sim|Não|
+|Utilizadores|POST|utilizadores|Cria novo utilizador|Não|Sim|
+|Utilizadores|POST|utilizadores/login|Login|Não|Sim|
+|Utilizadores|PUT|utilizadores/{id}|Edita utilizador por id|Sim|Sim|
+|Utilizadores|PUT|utilizadores/alterarSenha/{id}|Altera senha|Sim|Sim|
+|Utilizadores|DELETE|utilizadores/{id}|Remove utilizador por id|Sim|Não|
+|API TMDB|GET|tmdb/search?query={filme/serie}&tipo={tipo}|Pesquisa filme/série na API|Sim|Sim|
+|API TMDB|POST|tmdb/import|Importa filme/série no banco de dados|Sim|Sim|
+|Géneros|GET|generos|Busca todos os géneros|Não|Sim|
+|Géneros|GET|generos/{id}|Busca utilizador por id|Sim|Não|
+|Géneros|POST|generos|Cria novo género|Sim|Sim|
+|Géneros|PUT|generos/{id}|Edita género por id|Sim|Sim|
+|Géneros|DELETE|generos/{id}|Remove género por id|Sim|Sim|
+|Diretores|GET|diretores|Busca todos os diretores|Não|Sim|
+|Diretores|GET|diretores/{id}|Busca diretor por id|Sim|Não|
+|Diretores|POST|diretores|Cria novo diretor|Sim|Sim|
+|Diretores|PUT|diretores/{id}|Edita diretor por id|Sim|Sim|
+|Diretores|DELETE|diretores/{id}|Remove diretor por id|Sim|Sim|
+|Atores|GET|atores|Busca todos os atores|Não|Sim|
+|Atores|GET|atores/{id}|Busca ator por id|Sim|Não|
+|Atores|POST|atores|Cria novo ator|Sim|Sim|
+|Atores|PUT|atores/{id}|Edita ator por id|Sim|Sim|
+|Atores|DELETE|atores/{id}|Remove ator por id|Sim|Sim|
+|Filmes/Séries|GET|filmes-series|Busca todos os filmes/séries|Não|Sim|
+|Filmes/Séries|GET|filmes-series/filmes|Busca todos os filmes|Não|Sim|
+|Filmes/Séries|GET|filmes-series/series|Busca todos as séries|Não|Sim|
+|Filmes/Séries|GET|filmes-series/titulo/{titulo}|Busca filme/série por título|Não|Sim|
+|Filmes/Séries|GET|filmes-series/{id}|Busca filme/série por id|Não|Sim|
+|Filmes/Séries|POST|filmes-series|Cria novo filme/série|Sim|Sim|
+|Filmes/Séries|PUT|filmes-series/{id}|Edita filme/série por id|Sim|Sim|
+|Filmes/Séries|DELETE|filmes-series/{id}|Remove filme/série por id|Sim|Sim|
+|Filmes/Séries|POST|filmes-series/{id}/generos|Adiciona género ao filme/série por id|Sim|Sim|
+|Filmes/Séries|DELETE|filmes-series/{id}/generos/{id_genero}|Remove género do filme/série por id|Sim|Sim|
+|Filmes/Séries|POST|filmes-series/{id}/atores|Adiciona ator ao filme/série por id|Sim|Sim|
+|Filmes/Séries|DELETE|filmes-series/{id}/atores/{id_ator}|Remove ator do filme/série por id|Sim|Sim|
+|Favoritos|GET|favoritos|Busca favoritos do utilizador autenticado|Sim|Sim|
+|Favoritos|POST|favoritos|Adiciona filme/série aos favoritos do utilizador autenticado|Sim|Sim|
+|Favoritos|DELETE|favoritos/{id_filme}|Remove filme/série dos favoritos do utilizador autenticado por id do filme|Sim|Sim|
+|Listas|GET|listas|Busca lista do utilizador autenticado|Sim|Sim|
+|Listas|POST|listas|Adiciona filme/série à lista do utilizador autenticado|Sim|Sim|
+|Listas|DELETE|listas/{id_filme}|Remove filme/série da lista do utilizador autenticado por id do filme|Sim|Sim|
+|Reviews|GET|reviews|Busca todas as reviews|Não|Não|
+|Reviews|GET|reviews/{id}|Busca ator por id|Não|Não|
+|Reviews|GET|reviews/filmeserie/{idfilmeserie}|Busca review por id do filme/série|Não|Sim|
+|Reviews|POST|reviews|Cria nova review|Sim|Sim|
+|Reviews|PUT|reviews/{id}|Edita review por id|Sim|Não|
+|Reviews|DELETE|reviews/{id}|Remove review por id|Sim|Não|
+|Reviews|POST|reviews/{id}/votar|Votar review|Sim|Sim|
+
+
+
+
+
 

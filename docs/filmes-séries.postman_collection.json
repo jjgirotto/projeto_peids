@@ -1,0 +1,883 @@
+{
+	"info": {
+		"_postman_id": "82e5a44a-9d3e-4e92-9380-b29a951161f1",
+		"name": "Gestão filmes/séries",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38102727"
+	},
+	"item": [
+		{
+			"name": "Utilizadores",
+			"item": [
+				{
+					"name": "Busca todos utlizadores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/utilizadores"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca utilizador por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/utilizadores/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Cria utilizadores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"\",\r\n    \"email\": \"\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/utilizadores"
+					},
+					"response": []
+				},
+				{
+					"name": "Altera um utilizador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Letícia Tavares\",\r\n    \"email\": \"leticia@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/utilizadores/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Alterar senha",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senhaAntiga\": \"123456\",\r\n    \"novaSenha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/utilizadores/1/senha"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove utilizador",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/utilizadores/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Pega a resposta da requisição e a transforma em um objeto JSON\r",
+									"const responseData = pm.response.json();\r",
+									"\r",
+									"// Pega o valor do campo \"token\" de dentro do JSON da resposta\r",
+									"const token = responseData.token;\r",
+									"\r",
+									"// Se o token existir, salva o valor na variável 'jwt_token' do ambiente que está ativo\r",
+									"if (token) {\r",
+									"    pm.environment.set(\"jwt_token\", token);\r",
+									"    console.log(\"Token JWT salvo no ambiente!\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"juliana@email.com\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/utilizadores/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gêneros",
+			"item": [
+				{
+					"name": "Buscar todos gêneros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/generos"
+					},
+					"response": []
+				},
+				{
+					"name": "Cria gêneros",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/generos"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca gênero por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/generos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Altera gênero",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Action\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/generos/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove gênero",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/generos/30"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Atores",
+			"item": [
+				{
+					"name": "Buscar todos atores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/atores"
+					},
+					"response": []
+				},
+				{
+					"name": "Cria ator",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/atores"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca ator por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/atores/18"
+					},
+					"response": []
+				},
+				{
+					"name": "Altera ator",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Gary Sinise\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/atores/18"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove ator",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Gary Sinise\"\r\n}"
+						},
+						"url": "{{baseUrl}}/atores/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diretores",
+			"item": [
+				{
+					"name": "Buscar todos diretores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/diretores"
+					},
+					"response": []
+				},
+				{
+					"name": "Cria diretor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Gary Ross\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/diretores"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca diretor por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/diretores/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Altera diretor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Christopher Nolan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/diretores/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove diretor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/diretores/66"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Filmes/Séries",
+			"item": [
+				{
+					"name": "Busca todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca por titulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series/titulo/dune"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca filmes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series/filmes"
+					},
+					"response": []
+				},
+				{
+					"name": "Busca séries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series/series"
+					},
+					"response": []
+				},
+				{
+					"name": "Criar filme/serie",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Jogos Vorazes\",\r\n    \"tipo\": \"filme\",\r\n    \"sinopse\": \"Todos os anos, nas ruínas do que já foi a América do Norte, o Capitólio da nação de Panem obriga cada um dos 12 distritos a enviar um tributo de menino e menina entre 12 e 18 anos para competir nos Jogos Vorazes: um evento em que os 'tributos' lutam entre si até a morte até que um sobrevivente permaneça.\",\r\n    \"id_diretor\": 68,\r\n    \"ano_lancamento\": 2012,\r\n    \"duracao\": 145,\r\n    \"classificacao_idade\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series"
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar filme/série",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Jogos Vorazes\",\r\n    \"tipo\": \"filme\",\r\n    \"sinopse\": \"Todos os anos, nas ruínas do que já foi a América do Norte, o Capitólio da nação de Panem obriga cada um dos 12 distritos a enviar um tributo de menino e menina entre 12 e 18 anos para competir nos Jogos Vorazes: um evento em que os 'tributos' lutam entre si até a morte até que um sobrevivente permaneça.\",\r\n    \"id_diretor\": 68,\r\n    \"ano_lancamento\": 2012,\r\n    \"duracao\": 145,\r\n    \"classificacao_idade\": 16\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover filme/série",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/filmes-series/5"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar gênero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids_generos\": [1,7,14,24]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series/4/generos"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar atores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ids_atores\": [22]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series/4/atores"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover gênero",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series/4/generos/14"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover ator",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/filmes-series/4/atores/22"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Buscar todas reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_filme_serie\": 1,\r\n    \"classificacao\": 2,\r\n    \"critica\": \"Meio lento demais\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"classificacao\": 3,\r\n    \"critica\": \"Meio lento demais\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/reviews/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reviews",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar review por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/reviews/5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"reviews",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar review por filme/serie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/reviews/filmeserie/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/reviews/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Votar review",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TMDB",
+			"item": [
+				{
+					"name": "Pesquisar filme/série",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tmdb/search?query=Thrones&tipo=serie",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tmdb",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "Thrones"
+								},
+								{
+									"key": "tipo",
+									"value": "serie"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Importar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tmdb_id\": 1399,\r\n    \"tipo\": \"serie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/tmdb/import"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favoritos",
+			"item": [
+				{
+					"name": "Obter favoritos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/favoritos"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar favorito",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_filme_serie\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/favoritos"
+					},
+					"response": []
+				},
+				{
+					"name": "Remover favorito",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/favoritos/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"favoritos",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id_filme",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listas",
+			"item": [
+				{
+					"name": "Obter lista",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/listas"
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar filme à lista",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_filme_serie\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/listas"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/listas/3"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
