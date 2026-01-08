@@ -22,7 +22,7 @@ router.put('/:id', protegerRota,utilizadorController.atualizarUtilizador);
 // DELETE /api/utilizadores/id
 router.delete('/:id', protegerRota, utilizadorController.removerUtilizador);
 
-// PUT /api/utilizadores/alterarSenha/id
+// PUT /api/utilizadores/id/senha
 router.put('/:id/senha', protegerRota, utilizadorController.alterarSenha);
 
 //POST /api/utilizadores/login

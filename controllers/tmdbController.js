@@ -19,6 +19,9 @@ const pesquisarNoTmdb = (req, res) => {
 
     const urlCompleta = `${BASE_URL}/search/${typeSearch}?${params}`;
 
+    // fetch para o pedido, e quando a resposta chegar (.then), converte para JSON
+    // e QUANDO a conversão acabar (.then), executa a minha lógica
+
     fetch(urlCompleta)
         .then(async response => {
             if (!response.ok) {
@@ -30,7 +33,6 @@ const pesquisarNoTmdb = (req, res) => {
             return response.json();
         })
         .then(data => {
-            console.log("Sucesso! Encontrados:", data.results.length);
             const resultados = data.results.map(item => ({
                 tmdb_id: item.id,
                 titulo: item.title || item.name,

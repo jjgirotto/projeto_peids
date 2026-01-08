@@ -114,7 +114,6 @@ const removerReview = (req, res) => {
 const votarReview = (req, res) => {
     const { id } = req.params;
 
-    // A lógica é simples: Incrementa 1 ao valor atual
     const query = 'UPDATE reviews SET votos = votos + 1 WHERE id_reviews = ?';
 
     db.query(query, [id], (err, results) => {

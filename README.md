@@ -1,8 +1,8 @@
 # MANUAL TÉCNICO
 
-# Gestão de filmes e séries
+## Gestão de filmes e séries
 
-## Autoras
+## Autora
 - [Juliana Girotto Leite](https://github.com/jjgirotto)
 
 ## Sobre
@@ -89,12 +89,12 @@ URL = localhost:8080/api/{endpoint}
 |Utilizadores|POST|utilizadores|Cria novo utilizador|Não|Sim|
 |Utilizadores|POST|utilizadores/login|Login|Não|Sim|
 |Utilizadores|PUT|utilizadores/{id}|Edita utilizador por id|Sim|Sim|
-|Utilizadores|PUT|utilizadores/alterarSenha/{id}|Altera senha|Sim|Sim|
+|Utilizadores|PUT|utilizadores/{id}/senha|Altera senha|Sim|Sim|
 |Utilizadores|DELETE|utilizadores/{id}|Remove utilizador por id|Sim|Não|
 |API TMDB|GET|tmdb/search?query={filme/serie}&tipo={tipo}|Pesquisa filme/série na API|Sim|Sim|
 |API TMDB|POST|tmdb/import|Importa filme/série no banco de dados|Sim|Sim|
 |Géneros|GET|generos|Busca todos os géneros|Não|Sim|
-|Géneros|GET|generos/{id}|Busca utilizador por id|Sim|Não|
+|Géneros|GET|generos/{id}|Busca género por id|Sim|Não|
 |Géneros|POST|generos|Cria novo género|Sim|Sim|
 |Géneros|PUT|generos/{id}|Edita género por id|Sim|Sim|
 |Géneros|DELETE|generos/{id}|Remove género por id|Sim|Sim|
@@ -127,7 +127,7 @@ URL = localhost:8080/api/{endpoint}
 |Listas|POST|listas|Adiciona filme/série à lista do utilizador autenticado|Sim|Sim|
 |Listas|DELETE|listas/{id_filme}|Remove filme/série da lista do utilizador autenticado por id do filme|Sim|Sim|
 |Reviews|GET|reviews|Busca todas as reviews|Não|Não|
-|Reviews|GET|reviews/{id}|Busca ator por id|Não|Não|
+|Reviews|GET|reviews/{id}|Busca review por id|Não|Não|
 |Reviews|GET|reviews/filmeserie/{idfilmeserie}|Busca review por id do filme/série|Não|Sim|
 |Reviews|POST|reviews|Cria nova review|Sim|Sim|
 |Reviews|PUT|reviews/{id}|Edita review por id|Sim|Não|

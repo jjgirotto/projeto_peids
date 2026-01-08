@@ -299,7 +299,7 @@ async function carregarMinhaConta() {
                             <span>${f.nome} (${f.ano_lancamento})</span>
                             <div>
                                 <a href="detalhes.html?id=${f.id_filmes_series}" class="btn btn-sm btn-light">Ver</a>
-                                <button onclick="removerFavorito(${f.id_filmes_series})" class="btn btn-sm btn-danger">🗑️</button>
+                                <button onclick="removerFavorito(${f.id_filmes_series}, this)" class="btn btn-sm btn-danger">🗑️</button>
                             </div>
                         </div>`;
                 });
@@ -323,7 +323,7 @@ async function carregarMinhaConta() {
                             <span>${l.nome}</span>
                             <div>
                                 <a href="detalhes.html?id=${l.id_filmes_series}" class="btn btn-sm btn-light">Ver</a>
-                                <button onclick="removerDaLista(${l.id_filmes_series})" class="btn btn-sm btn-danger">🗑️</button>
+                                <button onclick="removerDaLista(${l.id_filmes_series}, this)" class="btn btn-sm btn-danger">🗑️</button>
                             </div>
                         </div>`;
                 });
@@ -332,22 +332,24 @@ async function carregarMinhaConta() {
     }
 }
 
-async function removerFavorito(id) {
+async function removerFavorito(id, botaoElemento) {
     if(!confirm('Remover dos favoritos?')) return;
     await fetch(`${API_URL}/favoritos/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
-    location.reload();
+    const linha = botaoElemento.closest('.list-group-item');
+    linha.remove();
 }
 
-async function removerDaLista(id) {
+async function removerDaLista(id, botaoElemento) {
     if(!confirm('Remover da lista?')) return;
     await fetch(`${API_URL}/listas/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${getToken()}` }
     });
-    location.reload();
+    const linha = botaoElemento.closest('.list-group-item');
+    linha.remove();
 }
 
 async function carregarDetalhesFilme() {
@@ -574,7 +576,7 @@ async function buscarNoTmdb() {
         }
 
         data.forEach(item => {
-            const img = item.poster ? `https://image.tmdb.org/t/p/w200${item.poster}` : 'https://via.placeholder.com/200x300';
+            const img = item.poster ? `https://image.tmdb.org/t/p/w200${item.poster}` : 'https://placehold.co/200x300?text=Sem+Imagem';
             
             container.innerHTML += `
                 <div class="col-md-3 mb-4">
@@ -601,14 +603,12 @@ async function importarFilme(id, tipo) {
     const token = getToken();
     
     try {
-        // Chama o teu endpoint de Importação
         const res = await fetch(`${API_URL}/tmdb/import`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            // Envia exatamente o que o teu controller pede: { tmdb_id, tipo }
             body: JSON.stringify({ tmdb_id: id, tipo: tipo })
         });
 
@@ -686,6 +686,7 @@ function prepararEditGenero(id, nome) {
     document.getElementById('btnSubmitGenero').classList.replace('btn-warning', 'btn-info');
     document.getElementById('btnCancelGenero').classList.remove('d-none');
 }
+
 function resetFormGenero() {
     document.getElementById('formGenero').reset();
     document.getElementById('idEditGenero').value = '';
