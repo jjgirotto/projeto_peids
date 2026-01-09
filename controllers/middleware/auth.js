@@ -10,7 +10,6 @@ const protegerRota = (req, res, next) => {
         if (err) {
             return res.status(403).json({ message: 'Token inválido ou expirado.' }); 
         }
-        // guarda os dados do utilizador no objeto 'req'
         req.utilizador = utilizador;
         next(); 
     });

@@ -456,9 +456,9 @@ async function carregarReviews(idFilme) {
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <h5 class="card-title text-warning">Nota: ${r.classificacao}/5</h5>
-                        <small class="text-muted">${r.data_criacao || ''}</small>
+                        <small class="text-white-50">${r.data || ''}</small>
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">Por: ${r.nome_utilizador || 'Anónimo'}</h6>
+                    <h6 class="card-subtitle mb-2 text-white-50">Por: ${r.nome_utilizador || 'Anónimo'}</h6>
                     <p class="card-text">${r.critica}</p>
                     
                     <div class="d-flex align-items-center">
